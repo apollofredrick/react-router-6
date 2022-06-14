@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet, useParams, NavLink } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -41,10 +41,22 @@ function Learn(){
 }
 
 function Courses(){
+  const courseList = ["React", "Angular", "Vue", "Nodejs"]
+  const randomCourseName = courseList[Math.floor(Math.random() * courseList.length)]
   return(
     <div>
       <h1>Courses list</h1>
       <h4>Courses card</h4>
+
+      <p>More tests</p>
+      <NavLink style={({isActive}) =>{
+        return{
+          backgroundColor: isActive ? "pink" : "yellow"
+        }
+      }} to={`/learn/courses/${randomCourseName}`}>{randomCourseName}</NavLink>
+      <NavLink className='btn btn-light' to={`/learn/courses/tests`}>tests</NavLink>
+
+      <Outlet/>
     </div>
   )
 }
@@ -56,6 +68,7 @@ function Bundles(){
     </div>
   )
 }
+
 function CourseId(){
   const {courseid} = useParams()
   return(
